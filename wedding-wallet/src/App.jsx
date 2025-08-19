@@ -1,5 +1,6 @@
 import { Navbar } from './components/Navbar'
 import { Homepage } from './components/Homepage';
+import { Footer } from './components/Footer';
 import { useState } from 'react';
 import './App.css'
 
@@ -23,7 +24,8 @@ function App() {
   return (
     <>
       <Navbar onHome={loadHomePage} onVendor={loadVendorsPage} onCalculate={loadCalculator} onTodo={loadTodoPage}/>
-      {pages[actualpage]};
+      {pages[actualpage]}
+      <Footer/>
     </>
   )
 }

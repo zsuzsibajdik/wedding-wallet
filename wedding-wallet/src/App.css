@@ -57,9 +57,21 @@ a:hover {
   font-size: large;
 }
 #welcome-div{
-  height: 90vh;
+  height: 81vh;
   align-content: center;
 }
 .welcome-message{
   text-align: center;
+}
+
+footer{
+  height: 8vh;
+  background-color: #c1aaaa;
+  color: whitesmoke;
+  padding: 0.6vh;
+  align-items: center;
+}
+footer p{
+  text-align: center;
+  font-size: small;
 }
