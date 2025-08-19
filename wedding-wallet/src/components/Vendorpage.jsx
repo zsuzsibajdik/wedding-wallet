@@ -32,7 +32,6 @@ function Vendorpage() {
 
     setVendors([...vendors, newVendor]);
 
-    // reset form
     setName("");
     setType("venue");
     setPrice("");
