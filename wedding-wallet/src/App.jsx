@@ -2,6 +2,7 @@ import { Navbar } from './components/Navbar'
 import { useState } from 'react';
 import './App.css'
 import Vendorpage from './components/Vendorpage';
+import TodoList from './components/Todo/TodoList';
 
 //const firebaseURL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
 function App() {
@@ -10,7 +11,7 @@ function App() {
     homepage: '<Homepage/>',
     vendorpage: <Vendorpage />,
     calculatepage: '<Calculator/>',
-    todopage: '<Todopage/>'
+    todopage: <TodoList/>
   };
   
   const [actualpage, setActualpage] = useState('homepage')
@@ -30,7 +31,7 @@ function App() {
   return (
     <>
       <Navbar onHome={loadHomePage} onVendor={loadVendorsPage} onCalculate={loadCalculator} onTodo={loadTodoPage}/>
-      {pages[actualpage]};
+      {pages[actualpage]}
     </>
   )
 }
