@@ -53,6 +53,30 @@ a:hover {
   
 }
 
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .navbar-center {
+    display: none;
+    width: 100%;
+  }
+
+  .navbar-center.active {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
 .logo{
   font-size: large;
 }

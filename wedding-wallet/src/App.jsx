@@ -1,4 +1,5 @@
 import { Navbar } from './components/Navbar'
+import Calculator from './components/Calculatorpage';
 import { Homepage } from './components/Homepage';
 import { Footer } from './components/Footer';
 import { useState } from 'react';
@@ -12,7 +13,7 @@ function App() {
   const pages = {
     homepage: <Homepage/>,
     vendorpage: <Vendorpage />,
-    calculatepage: '<Calculator/>',
+    calculatepage: <Calculator/>,
     todopage: <TodoList/>
   };
   
