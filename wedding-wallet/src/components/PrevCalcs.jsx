@@ -14,6 +14,7 @@ function PrevCalcs(){
         }
         fetchData();
     }, []);
+    
     return(
         <>
         {calculations ? (

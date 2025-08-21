@@ -229,6 +229,7 @@ function CalcForm (){
         <>
        
             {loaded ? ( <div id="calc-div"><form id="calc-form" onSubmit={handleSave}>
+                <h2>Let's calculate!</h2>
             <section>
                 <label>Venue:</label>
                 <select id="venuesel" onChange={handleVenueChange}>
