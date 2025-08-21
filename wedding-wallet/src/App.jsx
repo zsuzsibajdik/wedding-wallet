@@ -3,10 +3,19 @@ import { Homepage } from './components/Homepage';
 import { Footer } from './components/Footer';
 import { useState } from 'react';
 import './App.css'
+import Vendorpage from './components/Vendorpage';
+import TodoList from './components/Todo/TodoList';
 
 //const firebaseURL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
 function App() {
-  const pages = ({homepage: <Homepage/>, vendorpage: '<Vendorpage/>', calculatepage: '<Calculator/>', todopage: '<Todopage/>'});
+
+  const pages = {
+    homepage: <Homepage/>,
+    vendorpage: <Vendorpage />,
+    calculatepage: '<Calculator/>',
+    todopage: <TodoList/>
+  };
+  
   const [actualpage, setActualpage] = useState('homepage')
   function loadHomePage(){
     setActualpage('homepage');
