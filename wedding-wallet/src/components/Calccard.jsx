@@ -1,8 +1,8 @@
-export function CalcCard({ calculation }){
+export function CalcCard({ title, sum }){
     return(
         <div className="calccard">
-            <h3>{calculation.date}</h3>
-            <p>{calculation.sub}</p>
+            <h3>{title}</h3>
+            <p>{new Intl.NumberFormat("hu-HU").format(sum)} Ft</p>
             <button type="button">Show details</button>
         </div>
     )

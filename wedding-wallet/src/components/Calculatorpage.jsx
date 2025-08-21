@@ -23,10 +23,10 @@ function Calculator(){
     return(
         <>
             <CalcForm/>
-            {/* <div>
+            <div>
                 <h2>Previos calculations</h2>
                 <PrevCalcs calculations={calculations}/>
-            </div> */}
+            </div>
         </>
         
     )
