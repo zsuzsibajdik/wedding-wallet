@@ -30,13 +30,17 @@ function App() {
     setActualpage('todopage');
   }
 
-  return (
-    <>
-      <Navbar onHome={loadHomePage} onVendor={loadVendorsPage} onCalculate={loadCalculator} onTodo={loadTodoPage}/>
-      {pages[actualpage]}
-      <Footer/>
-    </>
-  )
+return (
+  <div className="app-shell">
+    <Navbar
+      onHome={loadHomePage}
+      onVendor={loadVendorsPage}
+      onCalculate={loadCalculator}
+      onTodo={loadTodoPage}
+    />
+    <main className="app-main">{pages[actualpage]}</main>
+    <Footer />
+  </div>
+);
 }
-
-export default App
+export default App;

@@ -1,9 +1,8 @@
 import { useState } from "react";
-import '../styles/vendorpage.css';
+import "../styles/vendorpage.css";
 
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
-
 
   const [name, setName] = useState("");
   const [type, setType] = useState("venue");
@@ -44,66 +43,69 @@ function Vendorpage() {
   }
 
   return (
-    <div className="vendors">          {/* <-- EZ KELL */}
-      <h2>Vendors</h2>
+    <div className="vendors">
+      <div className="vendors-content">
+        <h2>Vendors</h2>
 
-      <form onSubmit={addVendor}>      {/* <-- vedd le a form inline style-ját */}
-        <input
-          placeholder="Vendor name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          {vendorTypes.map((t) => (
-            <option key={t} value={t.toLowerCase()}>{t}</option>
-          ))}
-        </select>
-        <input
-          type="number"
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-        <input
-          placeholder="Contact info"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-          required
-        />
-        <button type="submit">Add Vendor</button>
-      </form>
+        <form onSubmit={addVendor}>
+          <input
+            placeholder="Vendor name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            {vendorTypes.map((t) => (
+              <option key={t} value={t.toLowerCase()}>{t}</option>
+            ))}
+          </select>
+          <input
+            type="number"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+          <input
+            placeholder="Contact info"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
+          <button type="submit">Add Vendor</button>
+        </form>
 
-      <table>                           {/* <-- vedd le a border/cellPadding/inline style-t */}
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Contact</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vendors.map((v) => (
-            <tr key={v.id}>
-              <td>{v.name}</td>
-              <td>{v.type}</td>
-              <td>{v.price}</td>
-              <td>{v.contact}</td>
-              <td>
-                <button onClick={() => deleteVendor(v.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-          {vendors.length === 0 && (
+        <table>
+          <thead>
             <tr>
-              <td colSpan="5">No vendors yet.</td>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Contact</th>
+              <th>Action</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {vendors.map((v) => (
+              <tr key={v.id}>
+                <td>{v.name}</td>
+                <td>{v.type}</td>
+                <td>{v.price}</td>
+                <td>{v.contact}</td>
+                <td>
+                  <button onClick={() => deleteVendor(v.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+            {vendors.length === 0 && (
+              <tr>
+                <td colSpan="5">No vendors yet.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      
     </div>
   );
 }

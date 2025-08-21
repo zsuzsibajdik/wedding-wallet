@@ -75,3 +75,21 @@ footer p{
   text-align: center;
   font-size: small;
 }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;  
+}
