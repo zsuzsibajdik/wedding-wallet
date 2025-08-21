@@ -227,62 +227,65 @@ function CalcForm (){
 
     return(
         <>
-        {loaded ? (<form id="calc-form" onSubmit={handleSave}>
-        <section>
-            <label>Venue:</label>
-            <select id="venuesel" onChange={handleVenueChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {venues.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <label>Catering:</label>
-            <select id="cateringsel" onChange={handleCateringChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {catering.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)} 
-            </select>
-        </section>
-        <section>
-            <label>Music:</label>
-            <select id="musicsel" onChange={handleMusicChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {music.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <label>Decoration:</label>
-            <select id="decsel" onChange={handleDecoChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {decoration.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <label>Makeup:</label>
-            <select id="makeupsel" onChange={handleMakeupChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {makeup.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <label>Photography:</label>
-            <select id="photosel" onChange={handlePhotoChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {photo.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <label>Others:</label>
-            <select id="othersel" onChange={handleOtherChange}>
-                <option key="noselect" disabled selected value> -- select an option -- </option>
-                {other.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
-            </select>
-        </section>
-        <section>
-            <h2>The total price currently is:</h2>
-            <h2 id="sum">{new Intl.NumberFormat("hu-HU").format(price)} Ft</h2>
-        </section>
-        <button type="submit">Save it for later!</button>
-    </form>) : (<p>Loading</p>)}
+       
+            {loaded ? ( <div id="calc-div"><form id="calc-form" onSubmit={handleSave}>
+            <section>
+                <label>Venue:</label>
+                <select id="venuesel" onChange={handleVenueChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {venues.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <section>
+                <label>Catering:</label>
+                <select id="cateringsel" onChange={handleCateringChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {catering.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)} 
+                </select>
+            </section>
+            <section>
+                <label>Music:</label>
+                <select id="musicsel" onChange={handleMusicChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {music.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <section>
+                <label>Decoration:</label>
+                <select id="decsel" onChange={handleDecoChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {decoration.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <section>
+                <label>Makeup:</label>
+                <select id="makeupsel" onChange={handleMakeupChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {makeup.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <section>
+                <label>Photography:</label>
+                <select id="photosel" onChange={handlePhotoChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {photo.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <section>
+                <label>Others:</label>
+                <select id="othersel" onChange={handleOtherChange}>
+                    <option key="noselect" disabled selected value> -- select an option -- </option>
+                    {other.map((vendor) => <Option key={vendor.id} name={vendor.name}/>)}
+                </select>
+            </section>
+            <button type="submit">Save it for later!</button>
+        </form>
+        <div id="totalprice">
+                <h2>The total price currently is:</h2>
+                <h2 id="sum">{new Intl.NumberFormat("hu-HU").format(price)} Ft</h2>
+            </div>
+            </div>) : (<p>Loading</p>)}
+        
         </>
     
     )

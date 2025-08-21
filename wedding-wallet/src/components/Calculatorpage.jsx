@@ -22,11 +22,13 @@ function Calculator(){
     }
     return(
         <>
-            <CalcForm/>
+        <div id="calc-page">
+        <CalcForm/>
             <div>
                 <h2>Previos calculations</h2>
                 <PrevCalcs calculations={calculations}/>
             </div>
+        </div>
         </>
         
     )
