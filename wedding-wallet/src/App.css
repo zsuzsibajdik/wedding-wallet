@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
 }
+body{
+  margin: 0;
+}
 nav {
   list-style-type: none;
   margin: 0;
@@ -13,19 +16,27 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   color: whitesmoke;
-  padding: 20px;
+  padding: 0px;
   gap: 10px;
   height: 10vh;
   width: 100%;
 }
 
+nav div{
+  padding: 2%;
+}
+
 ul{
   list-style-type: none;
+  margin: 0;
+  padding-left: 0;
 }
 
 nav li {
   float: left;
+  margin-top: 0;
 }
 
 a {
@@ -38,6 +49,29 @@ a {
 }
 
 a:hover {
-  background-color: #111;
+  background-color: #e2d4d4;
   
+}
+
+.logo{
+  font-size: large;
+}
+#welcome-div{
+  height: 81vh;
+  align-content: center;
+}
+.welcome-message{
+  text-align: center;
+}
+
+footer{
+  height: 8vh;
+  background-color: #c1aaaa;
+  color: whitesmoke;
+  padding: 0.6vh;
+  align-items: center;
+}
+footer p{
+  text-align: center;
+  font-size: small;
 }
