@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../styles/vendorpage.css';
 
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
@@ -43,25 +44,21 @@ function Vendorpage() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="vendors">          {/* <-- EZ KELL */}
       <h2>Vendors</h2>
 
-      <form onSubmit={addVendor} style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+      <form onSubmit={addVendor}>      {/* <-- vedd le a form inline style-ját */}
         <input
           placeholder="Vendor name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
-
         <select value={type} onChange={(e) => setType(e.target.value)}>
           {vendorTypes.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
+            <option key={t} value={t.toLowerCase()}>{t}</option>
           ))}
         </select>
-
         <input
           type="number"
           placeholder="Price"
@@ -69,18 +66,16 @@ function Vendorpage() {
           onChange={(e) => setPrice(e.target.value)}
           required
         />
-
         <input
           placeholder="Contact info"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
           required
         />
-
         <button type="submit">Add Vendor</button>
       </form>
 
-      <table border="1" cellPadding="8" style={{ width: "100%", borderCollapse: "collapse" }}>
+      <table>                           {/* <-- vedd le a border/cellPadding/inline style-t */}
         <thead>
           <tr>
             <th>Name</th>
@@ -102,10 +97,9 @@ function Vendorpage() {
               </td>
             </tr>
           ))}
-
           {vendors.length === 0 && (
             <tr>
-              <td colSpan="5" style={{ opacity: 0.7 }}>No vendors yet.</td>
+              <td colSpan="5">No vendors yet.</td>
             </tr>
           )}
         </tbody>
