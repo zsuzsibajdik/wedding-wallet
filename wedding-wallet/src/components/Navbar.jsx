@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export function Navbar({onHome, onVendor, onCalculate, onTodo}){
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     return(
         <>
             <nav className="navbar">
@@ -7,7 +11,10 @@ export function Navbar({onHome, onVendor, onCalculate, onTodo}){
                     The Wedding Wallet
                     </a>
                 </div>
-                <div className="navbar-center">
+                <div className="menu-toggle" onClick={toggleMenu}>
+                    ☰
+                </div>
+                <div className={`navbar-center ${isMenuOpen ? "active" : ""}`}>
                     <ul className="nav-links">
                     <li>
                         <a href="#" className="navbutton" onClick={onVendor}>Vendors</a>
@@ -19,9 +26,6 @@ export function Navbar({onHome, onVendor, onCalculate, onTodo}){
                         <a href="#" className="navbutton" onClick={onTodo}>Tasks</a>
                     </li>
                     </ul>
-                </div>
-                <div className="navbar-right">
-                    <span>Username</span>
                 </div>
             </nav>
         </>
