@@ -106,7 +106,7 @@ function Vendorpage() {
               <tr key={v.id}>
                 <td>{v.name}</td>
                 <td>{v.type}</td>
-                <td>{v.price}</td>
+                <td>{new Intl.NumberFormat("hu-HU").format(v.price)} Ft</td>
                 <td>{v.contact}</td>
                 <td>
                   <button onClick={() => deleteVendor(v.id)}>Delete</button>

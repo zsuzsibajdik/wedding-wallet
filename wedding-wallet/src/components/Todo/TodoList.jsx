@@ -57,6 +57,7 @@ export default function TodoList() {
 
   return (
     <div>
+      <TodoForm onSave={handleSave} />
       {todos.map(todo => (
         <Todo
           key={todo.id}
@@ -65,7 +66,6 @@ export default function TodoList() {
           onDelete={handleDelete}
         />
       ))}
-      <TodoForm onSave={handleSave} />
     </div>
   );
 }
