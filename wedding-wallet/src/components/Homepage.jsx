@@ -6,3 +6,5 @@ export function Homepage(){
         </div>
     )
 }
+
+export default Homepage;
