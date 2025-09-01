@@ -20,8 +20,8 @@ export default function TodoList() {
       });
   }, []);
 
-  function handleSave(title) {
-    const newTodo = { title, done: false, inProgress: false };
+  function handleSave(title, details) {
+    const newTodo = {title, details, done: false, inProgress: false };
     fetch(`${BASE_URL}/todos.json`, {
       method: "POST",
       body: JSON.stringify(newTodo)
@@ -32,10 +32,10 @@ export default function TodoList() {
       });
   }
 
-  function handleUpdate(id, title, done, inProgress) {
+  function handleUpdate(id, title, details, done, inProgress) {
     fetch(`${BASE_URL}/todos/${id}.json`, {
       method: "PATCH",
-      body: JSON.stringify({ title, done, inProgress })
+      body: JSON.stringify({id, title, details, done, inProgress })
     })
     .then(() => {
         setTodos(prev =>

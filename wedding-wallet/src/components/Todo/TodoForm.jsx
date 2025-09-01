@@ -1,21 +1,28 @@
 import { useState } from "react";
 
-export default function TodoForm({ onSave, initialText = "" }) {
-  const [text, setText] = useState(initialText);
+export default function TodoForm({ onSave, initialText = "",initialDetails = "" }) {
+  const [title, setTitle] = useState(initialText);
+  const [details, setDetails] = useState(initialDetails)
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (text.trim() === "") return;
-    onSave(text);
-    setText("");
+    if (title.trim() === "" || details.trim() === "") return;
+    onSave(title, details);
+    setTitle("");
+    setDetails("")
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        value={text}
-        onChange={e => setText(e.target.value)}
+        value={title}
+        onChange={e => setTitle(e.target.value)}
         placeholder="New todo..."
+      />
+      <input
+        value={details}
+        onChange={e => setDetails(e.target.value)}
+        placeholder="Details..."
       />
       <button type="submit">Save</button>
     </form>

@@ -1,11 +1,13 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Calculator from "./components/Calculatorpage";
+import Calculator from './components/Calculations/Calculatorpage';
 import Homepage from "./components/Homepage";
 import Footer from "./components/Footer";
 import Vendorpage from "./components/Vendorpage";
 import TodoList from "./components/Todo/TodoList";
 import "./App.css";
+
 
 function App() {
   return (

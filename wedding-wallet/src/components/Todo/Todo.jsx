@@ -9,14 +9,16 @@ export default function Todo({ id, title, details, done, inProgress, onUpdate, o
       {editing ? (
         <TodoForm
           initialText={title}
-          onSave={(newText) => {
-            onUpdate(id, newText, done, inProgress);
+          initialDetails={details}
+          onSave={(newTitle) => {
+            onUpdate(id, newTitle, done, inProgress);
             setEditing(false);
           }}
         />
       ) : (
         <>
           <span
+            id="title"
             style={{
               textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
             }}
@@ -24,18 +26,19 @@ export default function Todo({ id, title, details, done, inProgress, onUpdate, o
             {title}
           </span>
           <span
+            id="details"
             style={{
-              textDecoration: done ? "line-through" : inProgress ? "underline" : "none", 
+              textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
             }}
           >
-            ({details})
+            {details}
           </span>
           <button onClick={() => setEditing(!editing)}>Edit</button>
           <button onClick={() => onDelete(id)}>Delete</button>
-          <button onClick={() => onUpdate(id, title, details, !done, inProgress)}>
+          <button onClick={() => onUpdate(id, title, !done, inProgress)}>
             {done ? "Undo" : "Done"}
           </button>
-          <button onClick={() => onUpdate(id, title, details, done ? !done : done, !inProgress)}>
+          <button onClick={() => onUpdate(id, title, done ? !done : done, !inProgress)}>
             {inProgress && !done ? "Remove In Progress" : "Set In Progress"}
           </button>
         </>
