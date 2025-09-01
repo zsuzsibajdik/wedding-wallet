@@ -4,11 +4,13 @@ export function PrevCalcData({object, setCalcs}){
     }
     return(
         <>
-        <div>
-            <button type="button" onClick={handleX}>X</button>
+        <div id="prevcalcmodal">
+            <div id="buttondiv">
+                <button id="xbutton" type="button" onClick={handleX}>X</button>
+            </div>
             <h2>Your calculation</h2>
             <h5>{object.date}</h5>
-            <table>
+            <table id="prevcalctable">
                 <thead>
                     <tr>
                         <th>Type</th>
