@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
 }
+body{
+  margin: 0;
+}
 nav {
   list-style-type: none;
   margin: 0;
@@ -13,19 +16,27 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   color: whitesmoke;
-  padding: 20px;
+  padding: 0px;
   gap: 10px;
   height: 10vh;
   width: 100%;
 }
 
+nav div{
+  padding: 2%;
+}
+
 ul{
   list-style-type: none;
+  margin: 0;
+  padding-left: 0;
 }
 
 nav li {
   float: left;
+  margin-top: 0;
 }
 
 a {
@@ -38,6 +49,134 @@ a {
 }
 
 a:hover {
-  background-color: #111;
+  background-color: #e2d4d4;
   
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.logo{
+  font-size: large;
+}
+#welcome-div{
+  height: 81vh;
+  align-content: center;
+}
+.welcome-message{
+  text-align: center;
+}
+
+footer{
+  height: 8vh;
+  background-color: #c1aaaa;
+  color: whitesmoke;
+  padding: 0.6vh;
+  align-items: center;
+}
+footer p{
+  text-align: center;
+  font-size: small;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;  
+}
+
+#calc-page{
+  height: 81vh;
+  overflow-y: auto;
+}
+#calc-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+#calc-form{
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+#calc-form select{
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  min-width: 160px;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+#calc-form button, .calccard button {
+  padding: 8px 12px;
+  border: 1px solid var(--brand);
+  background: var(--brand);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform .05s ease, opacity .15s ease;
+}
+
+#calc-form button:hover, .calccard button:hover { opacity: .62; }
+
+#prev-calcs{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  overflow-x: auto;
+  margin-bottom: 10vh;
+}
+
+.calccard{
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: rgba(193, 170, 170, 0.3);
+  padding: 1vw;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+
+
+@media screen and (max-width: 768px) {
+  .navbar-center {
+    display: none;
+    width: 100%;
+  }
+
+  .navbar-center.active {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+  #calc-div{
+    display:flex;
+    flex-direction: column;
+  }
 }

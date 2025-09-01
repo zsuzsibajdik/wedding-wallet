@@ -1,4 +1,7 @@
 import { Navbar } from './components/Navbar'
+import Calculator from './components/Calculatorpage';
+import { Homepage } from './components/Homepage';
+import { Footer } from './components/Footer';
 import { useState } from 'react';
 import './App.css'
 import Vendorpage from './components/Vendorpage';
@@ -6,11 +9,11 @@ import TodoList from './components/Todo/TodoList';
 
 //const firebaseURL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
 function App() {
-  //const pages = ({homepage: '<Homepage/>', vendorpage: '<Vendorpage/>', calculatepage: '<Calculator/>', todopage: '<Todopage/>'});
+
   const pages = {
-    homepage: '<Homepage/>',
+    homepage: <Homepage/>,
     vendorpage: <Vendorpage />,
-    calculatepage: '<Calculator/>',
+    calculatepage: <Calculator/>,
     todopage: <TodoList/>
   };
   
@@ -28,12 +31,17 @@ function App() {
     setActualpage('todopage');
   }
 
-  return (
-    <>
-      <Navbar onHome={loadHomePage} onVendor={loadVendorsPage} onCalculate={loadCalculator} onTodo={loadTodoPage}/>
-      {pages[actualpage]}
-    </>
-  )
+return (
+  <div className="app-shell">
+    <Navbar
+      onHome={loadHomePage}
+      onVendor={loadVendorsPage}
+      onCalculate={loadCalculator}
+      onTodo={loadTodoPage}
+    />
+    <main className="app-main">{pages[actualpage]}</main>
+    <Footer />
+  </div>
+);
 }
-
-export default App
+export default App;

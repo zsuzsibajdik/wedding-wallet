@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import "../styles/vendorpage.css";
 
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
-
 
   const [name, setName] = useState("");
   const [type, setType] = useState("venue");
@@ -42,75 +42,88 @@ function Vendorpage() {
     setVendors(vendors.filter((v) => v.id !== id));
   }
 
+  useEffect(() => {
+    async function fetchData(){
+      const response = await fetch ('https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json');
+      const data = await response.json();
+
+      setVendors(() =>
+        Object.keys(data).map((id) =>({
+          id,
+          ...data[id]
+        }))
+      )
+    }
+    fetchData();
+  })
+
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Vendors</h2>
+    <>
+    {vendors ? (<div className="vendors">
+      <div className="vendors-content">
+        <h2>Vendors</h2>
 
-      <form onSubmit={addVendor} style={{ marginBottom: 16, display: "flex", gap: 8 }}>
-        <input
-          placeholder="Vendor name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <form onSubmit={addVendor}>
+          <input
+            placeholder="Vendor name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            {vendorTypes.map((t) => (
+              <option key={t} value={t.toLowerCase()}>{t}</option>
+            ))}
+          </select>
+          <input
+            type="number"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+          <input
+            placeholder="Contact info"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
+          <button type="submit">Add Vendor</button>
+        </form>
 
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          {vendorTypes.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="number"
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-
-        <input
-          placeholder="Contact info"
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-          required
-        />
-
-        <button type="submit">Add Vendor</button>
-      </form>
-
-      <table border="1" cellPadding="8" style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Contact</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vendors.map((v) => (
-            <tr key={v.id}>
-              <td>{v.name}</td>
-              <td>{v.type}</td>
-              <td>{v.price}</td>
-              <td>{v.contact}</td>
-              <td>
-                <button onClick={() => deleteVendor(v.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-
-          {vendors.length === 0 && (
+        <table>
+          <thead>
             <tr>
-              <td colSpan="5" style={{ opacity: 0.7 }}>No vendors yet.</td>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Contact</th>
+              <th>Action</th>
             </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {vendors.map((v) => (
+              <tr key={v.id}>
+                <td>{v.name}</td>
+                <td>{v.type}</td>
+                <td>{new Intl.NumberFormat("hu-HU").format(v.price)} Ft</td>
+                <td>{v.contact}</td>
+                <td>
+                  <button onClick={() => deleteVendor(v.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+            {vendors.length === 0 && (
+              <tr>
+                <td colSpan="5">No vendors yet.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      
+    </div>) : (<p>Loading</p>)}
+    </>
   );
 }
 

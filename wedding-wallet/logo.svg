@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="Wedding Wallet icon">
+  <style>
+    :root { --ww-primary:#1b3a2f; --ww-accent:#d3a86b; }
+    .icon-line { fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  </style>
+
+  <!-- Háttér kör (opcionális; töröld, ha átlátszót szeretnél) -->
+  <circle cx="96" cy="96" r="92" fill="white" stroke="var(--ww-primary)" stroke-width="4"/>
+
+  <!-- Gyűrűk -->
+  <g transform="translate(44,36)" stroke-width="5">
+    <circle class="icon-line" cx="36" cy="36" r="28" stroke="var(--ww-accent)"/>
+    <circle class="icon-line" cx="66" cy="36" r="28" stroke="var(--ww-primary)"/>
+  </g>
+
+  <!-- Pénztárca -->
+  <g transform="translate(28,84)" stroke-width="5">
+    <rect class="icon-line" x="4" y="8" rx="12" ry="12" width="132" height="64" stroke="var(--ww-primary)"/>
+    <path class="icon-line" d="M16 24 h92 a10 10 0 0 1 10 10 v16 a10 10 0 0 1 -10 10 h-92" stroke="var(--ww-primary)"/>
+    <!-- Szív kapocs -->
+    <path class="icon-line" d="M114 48
+                                c0 -6 5 -10 10 -10
+                                c4 0 8 3 8 8
+                                c0 10 -11 14 -18 22
+                                c-7 -8 -18 -12 -18 -22
+                                c0 -5 4 -8 8 -8
+                                c5 0 10 4 10 10z"
+          stroke="var(--ww-accent)"/>
+  </g>
+</svg>
