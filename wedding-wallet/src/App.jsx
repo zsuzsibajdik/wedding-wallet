@@ -1,5 +1,5 @@
 import { Navbar } from './components/Navbar'
-import Calculator from './components/Calculatorpage';
+import Calculator from './components/Calculations/Calculatorpage';
 import { Homepage } from './components/Homepage';
 import { Footer } from './components/Footer';
 import { useState } from 'react';
