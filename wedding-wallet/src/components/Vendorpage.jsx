@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/vendorpage.css";
 
 function Vendorpage() {
@@ -42,8 +42,24 @@ function Vendorpage() {
     setVendors(vendors.filter((v) => v.id !== id));
   }
 
+  useEffect(() => {
+    async function fetchData(){
+      const response = await fetch ('https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json');
+      const data = await response.json();
+
+      setVendors(() =>
+        Object.keys(data).map((id) =>({
+          id,
+          ...data[id]
+        }))
+      )
+    }
+    fetchData();
+  })
+
   return (
-    <div className="vendors">
+    <>
+    {vendors ? (<div className="vendors">
       <div className="vendors-content">
         <h2>Vendors</h2>
 
@@ -90,7 +106,7 @@ function Vendorpage() {
               <tr key={v.id}>
                 <td>{v.name}</td>
                 <td>{v.type}</td>
-                <td>{v.price}</td>
+                <td>{new Intl.NumberFormat("hu-HU").format(v.price)} Ft</td>
                 <td>{v.contact}</td>
                 <td>
                   <button onClick={() => deleteVendor(v.id)}>Delete</button>
@@ -106,7 +122,8 @@ function Vendorpage() {
         </table>
       </div>
       
-    </div>
+    </div>) : (<p>Loading</p>)}
+    </>
   );
 }
 
