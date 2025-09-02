@@ -73,6 +73,19 @@ function Vendorpage() {
     fetchData();
   })
 
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`${BASE_URL}vendors.json`);
+      const data = await res.json();
+      const loaded = data
+        ? Object.keys(data).map((id) => ({ id, ...data[id] }))
+        : [];
+      setVendors(loaded);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
   const filteredVendors = useMemo(() => {
     const text = searchText.trim().toLowerCase();
     return vendors.filter((v) => {
@@ -82,6 +95,8 @@ function Vendorpage() {
       return okType && okText;
     });
   }, [vendors, filterType, searchText]);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="vendors">
