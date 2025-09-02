@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import "../styles/vendorpage.css";
 
+const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
+
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,23 +27,6 @@ function Vendorpage() {
     "other",
   ];
 
-
-  useEffect(() => {
-    async function fetchData() {
-      const url =
-        "https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json";
-      const res = await fetch(url);
-      const data = await res.json();
-      const loaded = data
-        ? Object.keys(data).map((id) => ({ id, ...data[id] }))
-        : [];
-      setVendors(loaded);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-
-  
   function addVendor(e) {
     e.preventDefault();
     const newVendor = {
@@ -51,7 +36,14 @@ function Vendorpage() {
       price: Number(price),
       contact: contact.trim(),
     };
-    setVendors((prev) => [...prev, newVendor]);
+    fetch(`${BASE_URL}vendors.json`, {
+      method: "POST",
+      body: JSON.stringify(newVendor)
+    })
+      .then(res => res.json())
+      .then(data => {
+        setVendors(prev => [...prev, { id: data.name, ...newVendor }]);
+      });
 
     setName("");
     setType("venue");
@@ -60,10 +52,27 @@ function Vendorpage() {
   }
 
   function deleteVendor(id) {
-    setVendors((prev) => prev.filter((v) => v.id !== id));
+    fetch(`${BASE_URL}vendors/${id}.json`, { method: "DELETE" })
+      .then(() => {
+        setVendors(prev => prev.filter(todo => todo.id !== id));
+      });
   }
 
-  
+  useEffect(() => {
+    async function fetchData(){
+      const response = await fetch (`${BASE_URL}vendors.json`);
+      const data = await response.json();
+
+      setVendors(() =>
+        Object.keys(data).map((id) =>({
+          id,
+          ...data[id]
+        }))
+      )
+    }
+    fetchData();
+  })
+
   const filteredVendors = useMemo(() => {
     const text = searchText.trim().toLowerCase();
     return vendors.filter((v) => {
@@ -73,8 +82,6 @@ function Vendorpage() {
       return okType && okText;
     });
   }, [vendors, filterType, searchText]);
-
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="vendors">
