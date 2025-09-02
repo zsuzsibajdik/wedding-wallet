@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "../styles/vendorpage.css";
 
+const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
+
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
 
@@ -29,8 +31,14 @@ function Vendorpage() {
       price: Number(price),
       contact: contact.trim(),
     };
-
-    setVendors([...vendors, newVendor]);
+    fetch(`${BASE_URL}/vendors.json`, {
+      method: "POST",
+      body: JSON.stringify(newVendor)
+    })
+      .then(res => res.json())
+      .then(data => {
+        setVendors(prev => [...prev, { id: data.name, ...newVendor }]);
+      });
 
     setName("");
     setType("venue");
@@ -39,7 +47,10 @@ function Vendorpage() {
   }
 
   function deleteVendor(id) {
-    setVendors(vendors.filter((v) => v.id !== id));
+    fetch(`${BASE_URL}/vendors/${id}.json`, { method: "DELETE" })
+      .then(() => {
+        setVendors(prev => prev.filter(todo => todo.id !== id));
+      });
   }
 
   useEffect(() => {
