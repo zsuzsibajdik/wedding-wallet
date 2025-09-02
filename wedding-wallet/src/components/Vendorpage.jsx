@@ -1,44 +1,57 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "../styles/vendorpage.css";
-
-const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
 
 function Vendorpage() {
   const [vendors, setVendors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const [name, setName] = useState("");
   const [type, setType] = useState("venue");
   const [price, setPrice] = useState("");
   const [contact, setContact] = useState("");
 
+  //uj filter state
+  const [filterType, setFilterType] = useState("all");
+  const [searchText, setSearchText] = useState("");
+
   const vendorTypes = [
-    "Venue",
-    "Catering",
-    "Decoration",
-    "Music/DJ",
-    "Photography",
-    "Makeup",
-    "Other",
+    "venue",
+    "catering",
+    "decoration",
+    "music",
+    "photography",
+    "makeup",
+    "other",
   ];
 
+
+  useEffect(() => {
+    async function fetchData() {
+      const url =
+        "https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json";
+      const res = await fetch(url);
+      const data = await res.json();
+      const loaded = data
+        ? Object.keys(data).map((id) => ({ id, ...data[id] }))
+        : [];
+      setVendors(loaded);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  
   function addVendor(e) {
     e.preventDefault();
-
     const newVendor = {
-      id: Date.now(),
+      id: Date.now().toString(),
       name: name.trim(),
       type,
       price: Number(price),
       contact: contact.trim(),
     };
-    fetch(`${BASE_URL}/vendors.json`, {
-      method: "POST",
-      body: JSON.stringify(newVendor)
-    })
-      .then(res => res.json())
-      .then(data => {
-        setVendors(prev => [...prev, { id: data.name, ...newVendor }]);
-      });
+    setVendors((prev) => [...prev, newVendor]);
 
     setName("");
     setType("venue");
@@ -47,45 +60,67 @@ function Vendorpage() {
   }
 
   function deleteVendor(id) {
-    fetch(`${BASE_URL}/vendors/${id}.json`, { method: "DELETE" })
-      .then(() => {
-        setVendors(prev => prev.filter(todo => todo.id !== id));
-      });
+    setVendors((prev) => prev.filter((v) => v.id !== id));
   }
 
-  useEffect(() => {
-    async function fetchData(){
-      const response = await fetch ('https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json');
-      const data = await response.json();
+  
+  const filteredVendors = useMemo(() => {
+    const text = searchText.trim().toLowerCase();
+    return vendors.filter((v) => {
+      const okType = filterType === "all" || v.type === filterType;
+      const okText =
+        text === "" || (v.name ?? "").toLowerCase().includes(text);
+      return okType && okText;
+    });
+  }, [vendors, filterType, searchText]);
 
-      setVendors(() =>
-        Object.keys(data).map((id) =>({
-          id,
-          ...data[id]
-        }))
-      )
-    }
-    fetchData();
-  })
+  if (loading) return <p>Loading...</p>;
 
   return (
-    <>
-    {vendors ? (<div className="vendors">
+    <div className="vendors">
       <div className="vendors-content">
         <h2>Vendors</h2>
 
-        <form onSubmit={addVendor}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            Show:
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+            >
+              <option value="all">all</option>
+              {vendorTypes.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <input
+            placeholder="Search by name..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </div>
+
+        
+        <form onSubmit={addVendor} style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
           <input
             placeholder="Vendor name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
+
           <select value={type} onChange={(e) => setType(e.target.value)}>
             {vendorTypes.map((t) => (
-              <option key={t} value={t.toLowerCase()}>{t}</option>
+              <option key={t} value={t}>
+                {t[0].toUpperCase() + t.slice(1)}
+              </option>
             ))}
           </select>
+
           <input
             type="number"
             placeholder="Price"
@@ -93,12 +128,14 @@ function Vendorpage() {
             onChange={(e) => setPrice(e.target.value)}
             required
           />
+
           <input
             placeholder="Contact info"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             required
           />
+
           <button type="submit">Add Vendor</button>
         </form>
 
@@ -113,7 +150,7 @@ function Vendorpage() {
             </tr>
           </thead>
           <tbody>
-            {vendors.map((v) => (
+            {filteredVendors.map((v) => (
               <tr key={v.id}>
                 <td>{v.name}</td>
                 <td>{v.type}</td>
@@ -124,17 +161,18 @@ function Vendorpage() {
                 </td>
               </tr>
             ))}
-            {vendors.length === 0 && (
+
+            {filteredVendors.length === 0 && (
               <tr>
-                <td colSpan="5">No vendors yet.</td>
+                <td colSpan="5" style={{ opacity: 0.7 }}>
+                  No vendors match your filters.
+                </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-      
-    </div>) : (<p>Loading</p>)}
-    </>
+    </div>
   );
 }
 
