@@ -31,7 +31,7 @@ function Vendorpage() {
       price: Number(price),
       contact: contact.trim(),
     };
-    fetch(`${BASE_URL}/vendors.json`, {
+    fetch(`${BASE_URL}vendors.json`, {
       method: "POST",
       body: JSON.stringify(newVendor)
     })
@@ -47,7 +47,7 @@ function Vendorpage() {
   }
 
   function deleteVendor(id) {
-    fetch(`${BASE_URL}/vendors/${id}.json`, { method: "DELETE" })
+    fetch(`${BASE_URL}vendors/${id}.json`, { method: "DELETE" })
       .then(() => {
         setVendors(prev => prev.filter(todo => todo.id !== id));
       });
@@ -55,7 +55,7 @@ function Vendorpage() {
 
   useEffect(() => {
     async function fetchData(){
-      const response = await fetch ('https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/vendors.json');
+      const response = await fetch (`${BASE_URL}vendors.json`);
       const data = await response.json();
 
       setVendors(() =>

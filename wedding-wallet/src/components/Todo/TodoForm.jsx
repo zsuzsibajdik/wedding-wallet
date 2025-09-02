@@ -13,7 +13,7 @@ export default function TodoForm({ onSave, initialText = "",initialDetails = "" 
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form name="todo-form" onSubmit={handleSubmit}>
       <input
         value={title}
         onChange={e => setTitle(e.target.value)}
