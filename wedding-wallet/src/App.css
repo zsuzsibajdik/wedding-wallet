@@ -238,3 +238,8 @@ body {
     flex-direction: column;
   }
 }
+
+.todo-btn {
+  margin-right: 6px;
+  padding: 4px 8px; 
+}
