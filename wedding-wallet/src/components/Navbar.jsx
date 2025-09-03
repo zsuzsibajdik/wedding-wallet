@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { auth } from "../firebase"
+import { useContext } from "react";
+import { SignInContext } from "./SignInContext";
+import { signOut } from "firebase/auth";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {signedIn, setSignedIn} = useContext(SignInContext);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
 
   return (
     <nav className="navbar">
@@ -16,8 +22,9 @@ export function Navbar() {
         ☰
       </div>
       <div className={`navbar-center ${isMenuOpen ? "active" : ""}`}>
+        
         <ul className="nav-links">
-          <li>
+            <li>
             <NavLink to="/vendors" className="navbutton" onClick={() => setIsMenuOpen(false)}>
               Vendors
             </NavLink>
@@ -32,7 +39,27 @@ export function Navbar() {
               Tasks
             </NavLink>
           </li>
+          {signedIn ? (<li>
+             <button to="/" onClick={() => {
+                signOut(auth)
+                setSignedIn(false)
+                setIsMenuOpen(false)
+              }}>Sign out</button>
+          </li>
+          ) : (
+              <li>
+                <NavLink to="/signup" className="navbutton" onClick={() => setIsMenuOpen(false)}>
+                Sign Up
+                </NavLink>
+              </li>
+              )}
+          {!signedIn && <li>
+                <NavLink to="/signin" className="navbutton" onClick={() => setIsMenuOpen(false)}>
+                Sign In
+                </NavLink>
+              </li>  }
         </ul>
+
       </div>
     </nav>
   );

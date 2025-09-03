@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
+import { useContext } from "react";
+import { SignInContext } from "../SignInContext";
+import { Forbiddenpage } from "../Forbiddenbage";
 
 const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {signedIn} = useContext(SignInContext)
 
   useEffect(() => {
     fetch(`${BASE_URL}/todos.json`)
@@ -56,7 +60,7 @@ export default function TodoList() {
   if (loading) return <div className="loading">Loading...</div>;
 
   return (
-    <div>
+    signedIn ? ( <div>
       <TodoForm onSave={handleSave} />
       {todos.map(todo => (
         <Todo
@@ -66,6 +70,6 @@ export default function TodoList() {
           onDelete={handleDelete}
         />
       ))}
-    </div>
+    </div>) : (<Forbiddenpage/>)
   );
 }

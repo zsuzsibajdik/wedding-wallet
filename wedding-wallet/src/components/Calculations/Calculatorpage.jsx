@@ -1,17 +1,21 @@
 import PrevCalcs from "./PrevCalcs";
 import CalcForm from "./CalcForm";
+import { useContext } from "react";
+import { SignInContext } from "../SignInContext";
+import { Forbiddenpage } from "../Forbiddenbage";
+
 function Calculator(){
+    const {signedIn} = useContext(SignInContext)
     return(
-        <>
-        <div id="calc-page">
-        <CalcForm/>
-            <div>
-                <h2>Previos calculations</h2>
-                <PrevCalcs/>
+        signedIn ? (<>
+            <div id="calc-page">
+            <CalcForm/>
+                <div>
+                    <h2>Previos calculations</h2>
+                    <PrevCalcs/>
+                </div>
             </div>
-        </div>
-        </>
-        
+            </>) : (<Forbiddenpage/>) 
     )
 }
 
