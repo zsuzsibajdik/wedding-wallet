@@ -1,19 +1,24 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function TodoForm({ onSave, initialText = "",initialDetails = "" }) {
+export default function TodoForm({ onSave, initialText = "", initialDetails = ""}) {
   const [title, setTitle] = useState(initialText);
-  const [details, setDetails] = useState(initialDetails)
+  const [details, setDetails] = useState(initialDetails);
+  const [dueDate, setDueDate] = useState(new Date())
+
 
   function handleSubmit(e) {
     e.preventDefault();
     if (title.trim() === "" || details.trim() === "") return;
-    onSave(title, details);
+    onSave(title, details, dueDate);
     setTitle("");
     setDetails("")
+    setDueDate(Date())
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form key="todo-form" onSubmit={handleSubmit}>
       <input
         value={title}
         onChange={e => setTitle(e.target.value)}
@@ -24,6 +29,10 @@ export default function TodoForm({ onSave, initialText = "",initialDetails = "" 
         onChange={e => setDetails(e.target.value)}
         placeholder="Details..."
       />
+      <DatePicker dateFormat="YYYY-MM-dd" selected={dueDate} onChange={(date) => {
+        const convertedDate = new Date(date);
+        setDueDate(convertedDate.toISOString());
+      }} />
       <button type="submit">Save</button>
     </form>
   );

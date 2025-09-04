@@ -9,24 +9,22 @@ const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.fire
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
   const {signedIn} = useContext(SignInContext)
 
   useEffect(() => {
-    fetch(`${BASE_URL}/todos.json`)
+    fetch(`${BASE_URL}todos.json`)
       .then(res => res.json())
       .then(data => {
         const loaded = data
           ? Object.entries(data).map(([id, todo]) => ({ id, ...todo }))
           : [];
         setTodos(loaded);
-        setLoading(false);
       });
   }, []);
 
-  function handleSave(title, details) {
-    const newTodo = {title, details, done: false, inProgress: false };
-    fetch(`${BASE_URL}/todos.json`, {
+  function handleSave(title, details, dueDate) {
+    const newTodo = { title, details, dueDate, done: false, inProgress: false };
+    fetch(`${BASE_URL}todos.json`, {
       method: "POST",
       body: JSON.stringify(newTodo)
     })
@@ -36,40 +34,51 @@ export default function TodoList() {
       });
   }
 
-  function handleUpdate(id, title, details, done, inProgress) {
-    fetch(`${BASE_URL}/todos/${id}.json`, {
+  function handleUpdate(id, title, details, dueDate, done, inProgress) {
+    fetch(`${BASE_URL}todos/${id}.json`, {
       method: "PATCH",
-      body: JSON.stringify({id, title, details, done, inProgress })
+      headers: {"Content-Type": "application/json" },
+      body: JSON.stringify({ id, title, details, dueDate, done, inProgress })
     })
-    .then(() => {
+      .then(() => {
         setTodos(prev =>
-            prev.map(todo =>
-                todo.id === id ? { ...todo, title, done, inProgress } : todo
-            )
+          prev.map(todo =>
+            todo.id === id ? { ...todo, title, details, dueDate, done, inProgress } : todo
+          )
         );
-    });
+      });
   }
 
   function handleDelete(id) {
-    fetch(`${BASE_URL}/todos/${id}.json`, { method: "DELETE" })
+    fetch(`${BASE_URL}todos/${id}.json`, { method: "DELETE" })
       .then(() => {
         setTodos(prev => prev.filter(todo => todo.id !== id));
       });
   }
 
-  if (loading) return <div className="loading">Loading...</div>;
-
   return (
-    signedIn ? ( <div>
+    signedIn ? ( <div className="vendors">
       <TodoForm onSave={handleSave} />
-      {todos.map(todo => (
-        <Todo
-          key={todo.id}
-          {...todo}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
-        />
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Details</th>
+            <th>Due Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {todos.map(todo => (
+            <Todo
+              key={todo.id}
+              {...todo}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          ))}
+        </tbody>
+      </table>
     </div>) : (<Forbiddenpage/>)
   );
 }

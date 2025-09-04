@@ -1,48 +1,38 @@
-import { useState } from "react";
 import TodoForm from "./TodoForm";
 
-export default function Todo({ id, title, details, done, inProgress, onUpdate, onDelete }) {
-  const [editing, setEditing] = useState(false);
+export default function Todo({ id, title, details, dueDate, done, inProgress, onUpdate, onDelete }) {
 
   return (
-    <div className="todo-item">
-      {editing ? (
-        <TodoForm
-          initialText={title}
-          initialDetails={details}
-          onSave={(newTitle) => {
-            onUpdate(id, newTitle, done, inProgress);
-            setEditing(false);
-          }}
-        />
-      ) : (
-        <>
-          <span
-            id="title"
-            style={{
+        <tr key={id}>
+            <td style={{
               textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
-            }}
-          >
-            {title}
-          </span>
-          <span
-            id="details"
-            style={{
+            }}>
+              {title}
+            </td>
+            <td style={{
               textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
-            }}
-          >
-            {details}
-          </span>
-          <button onClick={() => setEditing(!editing)}>Edit</button>
-          <button onClick={() => onDelete(id)}>Delete</button>
-          <button onClick={() => onUpdate(id, title, !done, inProgress)}>
-            {done ? "Undo" : "Done"}
-          </button>
-          <button onClick={() => onUpdate(id, title, done ? !done : done, !inProgress)}>
-            {inProgress && !done ? "Remove In Progress" : "Set In Progress"}
-          </button>
-        </>
-      )}
-    </div>
+            }}>
+              {details}
+            </td>
+            <td style={{
+              textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
+            }}>
+              {dueDate.slice(0, 10)}
+            </td>
+            <td>
+              <button onClick={() => onDelete(id)}>Delete</button>
+              <button onClick={() => onUpdate(id, title, details, dueDate, !done, inProgress)}>
+                {done ? "Undo" : "Done"}
+              </button>
+              <button onClick={() => onUpdate(id, title, details, dueDate, done ? !done : done, !inProgress)}>
+                {inProgress && !done ? "Remove In Progress" : "Set In Progress"}
+              </button>
+            </td>
+          {!id && (
+            <tr>
+              <td colSpan="5">No todos yet.</td>
+            </tr>
+          )}
+      </tr>
   );
 }
