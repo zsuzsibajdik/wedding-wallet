@@ -214,6 +214,44 @@ body {
   justify-content: flex-end;
 }
 
+.signindiv{
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signinform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signinform input{
+  padding: 5px 10px;
+  border: 1px solid rgb(88, 88, 88);
+  border-radius: 8px;
+  margin: 2px;
+  background: #fff;
+  min-width: 160px;
+  outline: none;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.signinform button{
+    padding: 8px 12px;
+    border: 1px solid var(--brand);
+    background: var(--brand);
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform .05s ease, opacity .15s ease;
+}
+
+.signinform button:hover { opacity: .62; }
+
 @media screen and (max-width: 768px) {
   .navbar-center {
     display: none;

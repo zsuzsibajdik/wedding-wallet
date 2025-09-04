@@ -6,6 +6,8 @@ import Homepage from "./components/Homepage";
 import Footer from "./components/Footer";
 import Vendorpage from "./components/Vendorpage";
 import TodoList from "./components/Todo/TodoList";
+import SignInpage from "./components/SignInPage";
+import SignUppage from "./components/SignUppage";
 import "./App.css";
 
 
@@ -20,6 +22,8 @@ function App() {
             <Route path="/vendors" element={<Vendorpage />} />
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/todos" element={<TodoList />} />
+            <Route path="/signup" element={<SignUppage/>}/>
+            <Route path="/signin" element={<SignInpage/>}/>
             <Route path="*" element={<h2 style={{padding:20}}>Page not found</h2>} />
           </Routes>
         </main>

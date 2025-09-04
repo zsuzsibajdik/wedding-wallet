@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Todo from "./Todo";
 import TodoForm from "./TodoForm";
+import { useContext } from "react";
+import { SignInContext } from "../SignInContext";
+import { Forbiddenpage } from "../Forbiddenbage";
 
 const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/';
 
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
-
-
+  const {signedIn} = useContext(SignInContext);
   const [filterStatus, setFilterStatus] = useState("all");
   const [searchText, setSearchText] = useState("");
 
@@ -22,8 +24,8 @@ export default function TodoList() {
       });
   }, []);
 
-  function handleSave(title, details) {
-    const newTodo = { title, details, done: false, inProgress: false };
+  function handleSave(title, details, dueDate) {
+    const newTodo = { title, details, dueDate, done: false, inProgress: false };
     fetch(`${BASE_URL}todos.json`, {
       method: "POST",
       body: JSON.stringify(newTodo)
@@ -34,16 +36,16 @@ export default function TodoList() {
       });
   }
 
-  function handleUpdate(id, title, details, done, inProgress) {
+  function handleUpdate(id, title, details, dueDate, done, inProgress) {
     fetch(`${BASE_URL}todos/${id}.json`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, title, details, done, inProgress })
+      headers: {"Content-Type": "application/json" },
+      body: JSON.stringify({ id, title, details, dueDate, done, inProgress })
     })
       .then(() => {
         setTodos(prev =>
           prev.map(todo =>
-            todo.id === id ? { ...todo, title, details, done, inProgress } : todo
+            todo.id === id ? { ...todo, title, details, dueDate, done, inProgress } : todo
           )
         );
       });
@@ -75,7 +77,7 @@ export default function TodoList() {
   });
 
   return (
-    <div className="vendors">
+    signedIn ? ( <div className="vendors">
       <h2>Todos</h2>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
@@ -98,7 +100,6 @@ export default function TodoList() {
           Reset
         </button>
       </div>
-
       <TodoForm onSave={handleSave} />
 
       <table>
@@ -106,6 +107,7 @@ export default function TodoList() {
           <tr>
             <th>Title</th>
             <th>Details</th>
+            <th>Due Date</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -125,6 +127,6 @@ export default function TodoList() {
           )}
         </tbody>
       </table>
-    </div>
+    </div>) : (<Forbiddenpage/>)
   );
 }
