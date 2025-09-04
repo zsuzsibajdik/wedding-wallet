@@ -1,5 +1,8 @@
 export function Forbiddenpage(){
     return(
-        <h2>You have to sign in first!</h2>
+        <div className="signindiv">
+            <h2 className="forbiddenmessage">You have to sign in first!</h2>
+        </div>
+        
     )
 }

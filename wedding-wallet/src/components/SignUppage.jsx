@@ -20,19 +20,22 @@ function SignUppage(){
         }}
     return(
         <>
-        <form onSubmit={handleSubmit}>
-            <section>
-                <label>Your email address:</label>
-                <input id="newemail" type="text"/>
-            </section>
-            <section>
-                <label>Your password:</label>
-                <input id="newpassword" type="password"/>
-            </section>
-            <button id="signup">Sign up</button>
-        </form>
-        { error && <div style={{color: 'red'}}>{error}</div> }
-        { message && <div style={{color: 'green'}}>{message}</div>}
+        <div className="signindiv">
+            <h2>Sign up</h2>
+            <form className="signinform" onSubmit={handleSubmit}>
+                <section>
+                    <label>Your email address:</label>
+                    <input id="newemail" type="text"/>
+                </section>
+                <section>
+                    <label>Your password:</label>
+                    <input id="newpassword" type="password"/>
+                </section>
+                <button id="signup">Sign up</button>
+            </form>
+            { error && <div style={{color: 'red'}}>{error}</div> }
+            { message && <div style={{color: 'green'}}>{message}</div>}
+        </div>
         </>
     )
 }
