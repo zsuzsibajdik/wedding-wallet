@@ -18,8 +18,8 @@ export default function TodoList() {
       });
   }, []);
 
-  function handleSave(title, details) {
-    const newTodo = { title, details, done: false, inProgress: false };
+  function handleSave(title, details, dueDate) {
+    const newTodo = { title, details, dueDate, done: false, inProgress: false };
     fetch(`${BASE_URL}todos.json`, {
       method: "POST",
       body: JSON.stringify(newTodo)
@@ -30,16 +30,16 @@ export default function TodoList() {
       });
   }
 
-  function handleUpdate(id, title, details, done, inProgress) {
+  function handleUpdate(id, title, details, dueDate, done, inProgress) {
     fetch(`${BASE_URL}todos/${id}.json`, {
       method: "PATCH",
       headers: {"Content-Type": "application/json" },
-      body: JSON.stringify({ id, title, details, done, inProgress })
+      body: JSON.stringify({ id, title, details, dueDate, done, inProgress })
     })
       .then(() => {
         setTodos(prev =>
           prev.map(todo =>
-            todo.id === id ? { ...todo, title, done, inProgress } : todo
+            todo.id === id ? { ...todo, title, details, dueDate, done, inProgress } : todo
           )
         );
       });
@@ -61,6 +61,7 @@ export default function TodoList() {
           <tr>
             <th>Title</th>
             <th>Details</th>
+            <th>Due Date</th>
             <th>Action</th>
           </tr>
         </thead>

@@ -1,6 +1,6 @@
 import TodoForm from "./TodoForm";
 
-export default function Todo({ id, title, details, done, inProgress, onUpdate, onDelete }) {
+export default function Todo({ id, title, details, dueDate, done, inProgress, onUpdate, onDelete }) {
 
   return (
         <tr key={id}>
@@ -14,12 +14,17 @@ export default function Todo({ id, title, details, done, inProgress, onUpdate, o
             }}>
               {details}
             </td>
+            <td style={{
+              textDecoration: done ? "line-through" : inProgress ? "underline" : "none",
+            }}>
+              {dueDate.slice(0, 10)}
+            </td>
             <td>
               <button onClick={() => onDelete(id)}>Delete</button>
-              <button onClick={() => onUpdate(id, title, details, !done, inProgress)}>
+              <button onClick={() => onUpdate(id, title, details, dueDate, !done, inProgress)}>
                 {done ? "Undo" : "Done"}
               </button>
-              <button onClick={() => onUpdate(id, title, details, done ? !done : done, !inProgress)}>
+              <button onClick={() => onUpdate(id, title, details, dueDate, done ? !done : done, !inProgress)}>
                 {inProgress && !done ? "Remove In Progress" : "Set In Progress"}
               </button>
             </td>
