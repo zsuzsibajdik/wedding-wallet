@@ -1,7 +1,18 @@
+const BASE_URL = 'https://wedding-wallet-codecool-default-rtdb.europe-west1.firebasedatabase.app/'
+
 export function PrevCalcData({object, setCalcs}){
     function handleX(){
         setCalcs('')
     }
+
+    function bookVendor(id){
+        fetch(`${BASE_URL}vendors/${id}.json`, 
+          { 
+            method: "PATCH",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({booked: true})
+           })
+      }
     return(
         <>
         <div id="prevcalcmodal">
@@ -27,7 +38,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.venue.price)} Ft</td>
                         <td>{object.venue.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.venue.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +47,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.catering.price)} Ft</td>
                         <td>{object.catering.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.catering.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +56,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.music.price)} Ft</td>
                         <td>{object.music.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.music.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -54,7 +65,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.decoration.price)} Ft</td>
                         <td>{object.decoration.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.decoration.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +74,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.makeup.price)} Ft</td>
                         <td>{object.makeup.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.makeup.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -72,7 +83,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.photo.price)} Ft</td>
                         <td>{object.photo.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.photo.id)}/>
                         </td>
                     </tr>
                     <tr>
@@ -81,7 +92,7 @@ export function PrevCalcData({object, setCalcs}){
                         <td>{new Intl.NumberFormat("hu-HU").format(object.other.price)} Ft</td>
                         <td>{object.other.contact}</td>
                         <td>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={() => bookVendor(object.other.id)}/>
                         </td>
                     </tr>
                 </tbody>

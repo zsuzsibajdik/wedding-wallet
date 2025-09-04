@@ -55,10 +55,17 @@
 .vendors button:active { transform: translateY(1px); }
 
 
-.vendors td button {
+.vendors .deletebutton{
   background: #c84646;
   border-color: #c84646;
+  margin-right: 5px;
 }
+
+.vendors .bookbutton{
+  background: #3cf054;
+  border-color: #3cf054;
+}
+
 .vendors td button:hover { opacity: .9; }
 
 .vendors table {
