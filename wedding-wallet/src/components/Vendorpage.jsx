@@ -58,6 +58,15 @@ function Vendorpage() {
       });
   }
 
+  function bookVendor(id){
+    fetch(`${BASE_URL}vendors/${id}.json`, 
+      { 
+        method: "PATCH",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({booked: true})
+       })
+  }
+
   useEffect(() => {
     async function fetchData(){
       const response = await fetch (`${BASE_URL}vendors.json`);
@@ -179,7 +188,8 @@ function Vendorpage() {
                 <td>{new Intl.NumberFormat("hu-HU").format(v.price)} Ft</td>
                 <td>{v.contact}</td>
                 <td>
-                  <button onClick={() => deleteVendor(v.id)}>Delete</button>
+                  <button className="deletebutton" onClick={() => deleteVendor(v.id)}>Delete</button>
+                  <button className='bookbutton' onClick={() => bookVendor(v.id)}>Book</button>
                 </td>
               </tr>
             ))}
