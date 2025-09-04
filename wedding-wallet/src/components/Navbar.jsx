@@ -40,11 +40,11 @@ export function Navbar() {
             </NavLink>
           </li>
           {signedIn ? (<li>
-             <button to="/" onClick={() => {
+             <NavLink to="/" className="navbutton" onClick={() => {
                 signOut(auth)
                 setSignedIn(false)
                 setIsMenuOpen(false)
-              }}>Sign out</button>
+              }}>Sign out</NavLink>
           </li>
           ) : (
               <li>
