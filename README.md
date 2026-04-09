@@ -38,3 +38,19 @@ Make sure you have the following installed:
 1. Clone the repository:
 ```bash
 git clone https://github.com/zsuzsibajdik/wedding-wallet.git
+
+2. Navigate into the project folder
+cd wedding-wallet
+
+3. Install dependencies
+npm install
+
+4. Start the development server
+npm run dev
+
+**This project was developed as a team effort during Codecool:**
+
+- Pócs Gergő
+- Szeszták József
+- Négyesi Márk
+- Bajdik Zsuzsanna
